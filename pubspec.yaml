@@ -1,0 +1,19 @@
+name: flutter_configurator
+description: "Flutter Configurator is a form with a tree like structure to build a form with multiple steps that change based on earlier steps."
+version: 0.0.1
+homepage: https://iconica.app
+
+environment:
+  sdk: ">=3.4.4 <4.0.0"
+  flutter: ">=2.22.3"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_iconica_analysis:
+    hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub
+    version: ^7.0.0
