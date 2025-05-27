@@ -1,0 +1,109 @@
+import "package:flutter/material.dart";
+import "package:flutter_configurator/src/models/inputs.dart";
+
+///
+class DefaultButtonSelection extends StatelessWidget {
+  ///
+  const DefaultButtonSelection({
+    required this.inputField,
+    required this.onPressed,
+    required this.values,
+    super.key,
+  });
+
+  ///
+  final ConfiguratorButtonSelection inputField;
+
+  ///
+  final void Function(String value) onPressed;
+
+  ///
+  final Map<String, dynamic> values;
+
+  ///
+  static Widget builder(
+    BuildContext context, {
+    required ConfiguratorButtonSelection inputField,
+    required void Function(String value) onPressed,
+    required Map<String, dynamic> values,
+  }) =>
+      DefaultButtonSelection(
+        inputField: inputField,
+        onPressed: onPressed,
+        values: values,
+      );
+
+  @override
+  Widget build(BuildContext context) => Wrap(
+        spacing: 32,
+        runSpacing: 32,
+        children: [
+          ...inputField.options.map(
+            (option) => DefaultButtonSelectionButton(
+              option: option,
+              onPressed: () => onPressed(option.value),
+              isSelected: values[inputField.key] == option.value,
+            ),
+          ),
+        ],
+      );
+}
+
+///
+class DefaultButtonSelectionButton extends StatelessWidget {
+  ///
+  const DefaultButtonSelectionButton({
+    required this.option,
+    required this.isSelected,
+    this.onPressed,
+    super.key,
+  });
+
+  ///
+  final ConfiguratorButtonSelectionOption option;
+
+  ///
+  final VoidCallback? onPressed;
+
+  ///
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) => Column(
+        children: [
+          ElevatedButton(
+            statesController: WidgetStatesController(
+              <WidgetState>{
+                if (isSelected) WidgetState.selected,
+              },
+            ),
+            // statesController: stateController.value,
+            style: const ButtonStyle(
+              fixedSize: WidgetStatePropertyAll(
+                Size(175, 175),
+              ),
+              elevation: WidgetStatePropertyAll(5),
+            ),
+            onPressed: () {
+              onPressed?.call();
+            },
+            child: const Icon(
+              Icons.image,
+              color: Colors.black,
+              size: 60,
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          SizedBox(
+            width: 175,
+            child: Text(
+              option.label,
+              style: Theme.of(context).textTheme.titleMedium,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      );
+}
