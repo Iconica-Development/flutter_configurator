@@ -1,3 +1,5 @@
+import "package:flutter/widgets.dart";
+
 ///
 abstract class ConfiguratorInputType {
   ///
@@ -143,6 +145,7 @@ class ConfiguratorButtonSelectionOption {
     required this.label,
     required this.image,
     required this.value,
+    this.padding,
   });
 
   ///
@@ -153,6 +156,9 @@ class ConfiguratorButtonSelectionOption {
 
   ///
   final String value;
+
+  /// padding for the content inside the button. If null, no padding is applied.
+  final EdgeInsetsGeometry? padding;
 }
 
 ///
