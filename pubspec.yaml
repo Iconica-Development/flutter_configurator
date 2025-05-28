@@ -4,8 +4,8 @@ version: 0.0.1
 homepage: https://iconica.app
 
 environment:
-  sdk: ">=3.4.4 <4.0.0"
-  flutter: ">=2.22.3"
+  sdk: ">=3.5.4 <4.0.0"
+  flutter: ">=2.24.4"
 
 dependencies:
   file_picker: ^8.3.2
