@@ -1,3 +1,4 @@
+# ignore_for_file: invalid_dependency
 name: flutter_configurator
 description: "Flutter Configurator is a form with a tree like structure to build a form with multiple steps that change based on earlier steps."
 version: 0.0.1

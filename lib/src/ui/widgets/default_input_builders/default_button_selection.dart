@@ -78,20 +78,34 @@ class DefaultButtonSelectionButton extends StatelessWidget {
               },
             ),
             // statesController: stateController.value,
-            style: const ButtonStyle(
-              fixedSize: WidgetStatePropertyAll(
+            style: ButtonStyle(
+              padding: WidgetStatePropertyAll(
+                option.padding ?? EdgeInsets.zero,
+              ),
+              fixedSize: const WidgetStatePropertyAll(
                 Size(175, 175),
               ),
-              elevation: WidgetStatePropertyAll(5),
+              elevation: const WidgetStatePropertyAll(5),
             ),
             onPressed: () {
               onPressed?.call();
             },
-            child: const Icon(
-              Icons.image,
-              color: Colors.black,
-              size: 60,
-            ),
+            child: option.image != ""
+                ? ClipRRect(
+                    borderRadius: option.padding != null
+                        ? BorderRadius.zero
+                        : BorderRadius.circular(12),
+                    child: Image.asset(
+                      option.image,
+                      fit: BoxFit.cover,
+                      width: 175,
+                    ),
+                  )
+                : const Icon(
+                    Icons.image,
+                    size: 100,
+                    color: Colors.black,
+                  ),
           ),
           const SizedBox(
             height: 16,
