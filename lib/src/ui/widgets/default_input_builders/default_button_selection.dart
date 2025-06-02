@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_configurator/flutter_configurator.dart";
 import "package:flutter_configurator/src/models/inputs.dart";
 
 ///
@@ -40,9 +41,11 @@ class DefaultButtonSelection extends StatelessWidget {
         children: [
           ...inputField.options.map(
             (option) => DefaultButtonSelectionButton(
+              inputField: inputField,
               option: option,
               onPressed: () => onPressed(option.value),
               isSelected: values[inputField.key] == option.value,
+              values: values,
             ),
           ),
         ],
@@ -55,6 +58,8 @@ class DefaultButtonSelectionButton extends StatelessWidget {
   const DefaultButtonSelectionButton({
     required this.option,
     required this.isSelected,
+    required this.values,
+    required this.inputField,
     this.onPressed,
     super.key,
   });
@@ -68,56 +73,75 @@ class DefaultButtonSelectionButton extends StatelessWidget {
   ///
   final bool isSelected;
 
+  final Map<String, dynamic> values;
+
+  ///
+  final ConfiguratorButtonSelection inputField;
+
   @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          ElevatedButton(
-            statesController: WidgetStatesController(
-              <WidgetState>{
-                if (isSelected) WidgetState.selected,
-              },
-            ),
-            // statesController: stateController.value,
-            style: ButtonStyle(
-              padding: WidgetStatePropertyAll(
-                option.padding ?? EdgeInsets.zero,
-              ),
-              fixedSize: const WidgetStatePropertyAll(
-                Size(175, 175),
-              ),
-              elevation: const WidgetStatePropertyAll(5),
-            ),
-            onPressed: () {
-              onPressed?.call();
-            },
-            child: option.image != ""
-                ? ClipRRect(
-                    borderRadius: option.padding != null
-                        ? BorderRadius.zero
-                        : BorderRadius.circular(12),
-                    child: Image.asset(
-                      option.image,
-                      fit: BoxFit.cover,
-                      width: 175,
-                    ),
-                  )
-                : const Icon(
-                    Icons.image,
-                    size: 100,
-                    color: Colors.black,
+  Widget build(BuildContext context) {
+    var options = ConfiguratorScope.of(context);
+    var primaryisSelected = values[inputField.key] != option.value;
+    var stepExists = values.containsKey(inputField.key);
+
+    return option.image.isEmpty
+        ? options.primaryButtonBuilder(
+            context,
+            text: option.label,
+            onPressed: stepExists && primaryisSelected ? null : onPressed,
+            onDisablePressed: () => onPressed?.call(),
+            width: 225,
+          )
+        : Column(
+            children: [
+              ElevatedButton(
+                statesController: WidgetStatesController(
+                  <WidgetState>{
+                    if (isSelected) WidgetState.selected,
+                  },
+                ),
+                // statesController: stateController.value,
+                style: ButtonStyle(
+                  padding: WidgetStatePropertyAll(
+                    option.padding ?? EdgeInsets.zero,
                   ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          SizedBox(
-            width: 175,
-            child: Text(
-              option.label,
-              style: Theme.of(context).textTheme.titleMedium,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      );
+                  fixedSize: const WidgetStatePropertyAll(
+                    Size(175, 175),
+                  ),
+                  elevation: const WidgetStatePropertyAll(5),
+                ),
+                onPressed: () {
+                  onPressed?.call();
+                },
+                child: option.image != ""
+                    ? ClipRRect(
+                        borderRadius: option.padding != null
+                            ? BorderRadius.zero
+                            : BorderRadius.circular(12),
+                        child: Image.asset(
+                          option.image,
+                          fit: BoxFit.cover,
+                          width: 175,
+                        ),
+                      )
+                    : const Icon(
+                        Icons.image,
+                        size: 100,
+                        color: Colors.black,
+                      ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              SizedBox(
+                width: 175,
+                child: Text(
+                  option.label,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          );
+  }
 }
