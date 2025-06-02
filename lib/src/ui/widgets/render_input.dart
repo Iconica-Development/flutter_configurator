@@ -46,13 +46,42 @@ class RenderInput extends StatelessWidget {
           context,
           inputField: input as ConfiguratorFileUpload,
           onPressed: () async {
+            var maxSize = (input as ConfiguratorFileUpload).maxFileSize;
+            var maxSizeInBytes = maxSize ?? 2 * 1024 * 1024;
+
             var result = await FilePicker.platform.pickFiles();
             if (result != null) {
               var file = result.files.first;
-              onInputChanged(input.key, file);
+              if (file.size > maxSizeInBytes) {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Theme.of(context).colorScheme.error,
+                      content: Text(
+                        // ignore: lines_longer_than_80_chars
+                        "File size exceeds the limit of ${maxSizeInBytes / (1024 * 1024)} MB",
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  );
+                }
+                return;
+              }
+
+              onInputChanged(input.key, [file, ...?values[input.key]]);
             }
           },
           width: (input as ConfiguratorFileUpload).width,
+          values: values,
+          onDeletePressed: (value) {
+            // remove item from the list
+            onInputChanged(
+              input.key,
+              (values[input.key] as List<dynamic>)
+                  .where((file) => file.name != value)
+                  .toList(),
+            );
+          },
         ),
       ConfiguratorInputDropdown => options.inputBuilders.dropdownInputBuilder(
           context,
@@ -71,6 +100,7 @@ class RenderInput extends StatelessWidget {
           inputField: input as ConfiguratorInputField,
           onChanged: (value) => onInputChanged(input.key, value),
           initialValue: values[input.key] as String?,
+          validationFunction: input.validator,
         ),
       ConfiguratorRowSection => options.inputBuilders.rowInputSectionBuilder(
           context,

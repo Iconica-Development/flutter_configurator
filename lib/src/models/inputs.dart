@@ -33,6 +33,7 @@ class ConfiguratorFileUpload extends ConfiguratorInputType {
     required super.key,
     required this.buttonText,
     this.width,
+    this.maxFileSize,
     super.isRequired = true,
     super.validationFunction,
   });
@@ -42,6 +43,9 @@ class ConfiguratorFileUpload extends ConfiguratorInputType {
 
   ///
   final double? width;
+
+  ///
+  final double? maxFileSize;
 
   @override
   String? defaultValidation(Map<String, dynamic> values) {

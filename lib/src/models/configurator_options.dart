@@ -152,6 +152,7 @@ typedef InputFieldBuilder = Widget Function(
   required ConfiguratorInputField inputField,
   required void Function(String value) onChanged,
   required String? initialValue,
+  required String? Function(Map<String, dynamic>) validationFunction,
 });
 
 ///
@@ -159,6 +160,9 @@ typedef FileUploadButtonBuilder = Widget Function(
   BuildContext context, {
   required ConfiguratorFileUpload inputField,
   required VoidCallback onPressed,
+  required Map<String, dynamic> values,
+  double? maxFileSize,
+  void Function(String name)? onDeletePressed,
   double? width,
 });
 
@@ -208,6 +212,7 @@ typedef PrimaryButtonBuilder = Widget Function(
   required String text,
   required VoidCallback? onPressed,
   VoidCallback? onDisablePressed,
+  VoidCallback? onDeletePressed,
   double? width,
 });
 
