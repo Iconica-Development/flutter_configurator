@@ -120,6 +120,7 @@ class RenderInput extends StatelessWidget {
           inputField: input as ConfiguratorImage,
           width: (input as ConfiguratorImage).width,
           scale: (input as ConfiguratorImage).scale,
+          height: (input as ConfiguratorImage).height,
         ),
       ConfiguratorEmptySection => options.inputBuilders.emptyInputBuilder(
           context,
