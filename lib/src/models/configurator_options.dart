@@ -203,6 +203,7 @@ typedef ImageBuilder = Widget Function(
   BuildContext context, {
   required ConfiguratorImage inputField,
   double? width,
+  double? height,
   double? scale,
 });
 

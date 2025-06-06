@@ -239,6 +239,7 @@ class ConfiguratorImage extends ConfiguratorInputType {
   const ConfiguratorImage({
     required this.imagePath,
     this.width,
+    this.height,
     this.scale,
   }) : super(key: "", isRequired: false);
 
@@ -250,6 +251,9 @@ class ConfiguratorImage extends ConfiguratorInputType {
 
   ///
   final double? scale;
+
+  ///
+  final double? height;
 
   @override
   String? defaultValidation(Map<String, dynamic> values) => null;
