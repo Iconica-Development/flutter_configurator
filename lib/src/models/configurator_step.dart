@@ -1,3 +1,4 @@
+import "package:flutter/widgets.dart";
 import "package:flutter_configurator/src/models/configurator_section.dart";
 
 ///
@@ -7,6 +8,7 @@ class ConfiguratorStep {
     required this.title,
     required this.sections,
     this.validationFunction,
+    this.backgroundWidget,
   });
 
   ///
@@ -17,6 +19,9 @@ class ConfiguratorStep {
 
   ///
   final ValidationFunction? validationFunction;
+
+  ///
+  final Widget? backgroundWidget;
 }
 
 ///

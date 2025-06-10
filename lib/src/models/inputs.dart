@@ -33,6 +33,7 @@ class ConfiguratorFileUpload extends ConfiguratorInputType {
     required super.key,
     required this.buttonText,
     this.width,
+    this.maxFileSize,
     super.isRequired = true,
     super.validationFunction,
   });
@@ -42,6 +43,9 @@ class ConfiguratorFileUpload extends ConfiguratorInputType {
 
   ///
   final double? width;
+
+  ///
+  final double? maxFileSize;
 
   @override
   String? defaultValidation(Map<String, dynamic> values) {
@@ -235,6 +239,7 @@ class ConfiguratorImage extends ConfiguratorInputType {
   const ConfiguratorImage({
     required this.imagePath,
     this.width,
+    this.height,
     this.scale,
   }) : super(key: "", isRequired: false);
 
@@ -246,6 +251,9 @@ class ConfiguratorImage extends ConfiguratorInputType {
 
   ///
   final double? scale;
+
+  ///
+  final double? height;
 
   @override
   String? defaultValidation(Map<String, dynamic> values) => null;

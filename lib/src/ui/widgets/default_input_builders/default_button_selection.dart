@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:flutter_configurator/flutter_configurator.dart";
-import "package:flutter_configurator/src/models/inputs.dart";
 
 ///
 class DefaultButtonSelection extends StatelessWidget {
@@ -73,6 +72,7 @@ class DefaultButtonSelectionButton extends StatelessWidget {
   ///
   final bool isSelected;
 
+  ///
   final Map<String, dynamic> values;
 
   ///
@@ -100,7 +100,6 @@ class DefaultButtonSelectionButton extends StatelessWidget {
                     if (isSelected) WidgetState.selected,
                   },
                 ),
-                // statesController: stateController.value,
                 style: ButtonStyle(
                   padding: WidgetStatePropertyAll(
                     option.padding ?? EdgeInsets.zero,
@@ -118,10 +117,19 @@ class DefaultButtonSelectionButton extends StatelessWidget {
                         borderRadius: option.padding != null
                             ? BorderRadius.zero
                             : BorderRadius.circular(12),
-                        child: Image.asset(
-                          option.image,
-                          fit: BoxFit.cover,
-                          width: 175,
+                        child: Stack(
+                          children: [
+                            Image.asset(
+                              option.image,
+                              fit: BoxFit.cover,
+                              width: 175,
+                            ),
+                            if (!isSelected && stepExists) ...[
+                              Container(
+                                color: Colors.white.withAlpha(150),
+                              ),
+                            ],
+                          ],
                         ),
                       )
                     : const Icon(

@@ -192,6 +192,9 @@ class _ConfiguratorUserstoryContent extends HookWidget {
 
     return Stack(
       children: [
+        if (currentPage?.backgroundWidget != null) ...[
+          currentPage!.backgroundWidget!,
+        ],
         Padding(
           padding: EdgeInsets.only(left: 24, top: isFirstStep ? 58 : 0),
           child: MultiStepperView(

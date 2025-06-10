@@ -43,7 +43,7 @@ class DefaultColumnInputSection extends StatelessWidget {
         for (var input in inputs) ...[
           if (inputs.indexOf(input) != 0) ...[
             const SizedBox(
-              height: 32,
+              height: 24,
             ),
           ],
           RenderInput(
