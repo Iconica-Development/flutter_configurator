@@ -56,30 +56,31 @@ class _DefaultTextInputFieldState extends State<DefaultTextInputField> {
           const SizedBox(
             height: 8,
           ),
-          TextFormField(
-            key: inputKey,
-            initialValue: widget.initialValue,
-            onChanged: (value) {
-              inputKey.currentState?.validate();
-              widget.onChanged.call(value);
-            },
-            decoration: InputDecoration(
-              hintText: widget.inputField.hintText,
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(12),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: SizedBox(
+              width: 600,
+              child: TextFormField(
+                key: inputKey,
+                initialValue: widget.initialValue,
+                onChanged: (value) {
+                  inputKey.currentState?.validate();
+                  widget.onChanged.call(value);
+                },
+                decoration: InputDecoration(
+                  hintText: widget.inputField.hintText,
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(12),
+                    ),
+                  ),
                 ),
+                keyboardType: TextInputType.text,
+                validator: (value) => widget.validationFunction({
+                  widget.inputField.key: value,
+                }),
               ),
-              // focusedBorder: const OutlineInputBorder(
-              //   borderRadius: BorderRadius.all(
-              //     Radius.circular(12),
-              //   ),
-              // ),
             ),
-            keyboardType: TextInputType.text,
-            validator: (value) => widget.validationFunction({
-              widget.inputField.key: value,
-            }),
           ),
         ],
       );
