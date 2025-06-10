@@ -70,11 +70,11 @@ class _DefaultTextInputFieldState extends State<DefaultTextInputField> {
                   Radius.circular(12),
                 ),
               ),
-              focusedBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(12),
-                ),
-              ),
+              // focusedBorder: const OutlineInputBorder(
+              //   borderRadius: BorderRadius.all(
+              //     Radius.circular(12),
+              //   ),
+              // ),
             ),
             keyboardType: TextInputType.text,
             validator: (value) => widget.validationFunction({
