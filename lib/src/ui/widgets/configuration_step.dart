@@ -59,8 +59,8 @@ class ConfiguratorStepDisplay extends StatelessWidget {
               ),
             ],
           ),
-          for (var section in step.sections) ...[
-            const SizedBox(height: 40),
+          for (var (index, section) in step.sections.indexed) ...[
+            SizedBox(height: index == 0 ? 20 : 40),
             ConfigurationStepSection(
               section: section,
               values: values,
