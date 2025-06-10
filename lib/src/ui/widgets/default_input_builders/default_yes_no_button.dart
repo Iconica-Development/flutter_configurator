@@ -57,6 +57,7 @@ class DefaultYesNoButton extends StatelessWidget {
           text: inputField.yesLabel,
           onPressed: onYesPressed,
           onDisablePressed: () => onPressed(true),
+          width: 250,
         ),
         const SizedBox(width: 32),
         options.primaryButtonBuilder(
@@ -64,6 +65,7 @@ class DefaultYesNoButton extends StatelessWidget {
           text: inputField.noLabel,
           onPressed: onNoPressed,
           onDisablePressed: () => onPressed(false),
+          width: 250,
         ),
       ],
     );
