@@ -49,32 +49,38 @@ class DefaultDropdownInput<T> extends StatelessWidget {
         const SizedBox(
           height: 8,
         ),
-        DropdownButtonFormField<T?>(
-          value: selectedValue,
-          borderRadius: BorderRadius.circular(12),
-          decoration: InputDecoration(
-            hintText: inputField.hintText,
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(12),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: SizedBox(
+            width: 600,
+            child: DropdownButtonFormField<T?>(
+              value: selectedValue,
+              borderRadius: BorderRadius.circular(12),
+              decoration: InputDecoration(
+                hintText: inputField.hintText,
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12),
+                  ),
+                ),
+                focusedBorder: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12),
+                  ),
+                ),
               ),
-            ),
-            focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(12),
-              ),
+              items: inputField.options.map(
+                (option) {
+                  var value = option as T?;
+                  return DropdownMenuItem<T?>(
+                    value: value,
+                    child: Text(value.toString()),
+                  );
+                },
+              ).toList(),
+              onChanged: onChanged,
             ),
           ),
-          items: inputField.options.map(
-            (option) {
-              var value = option as T?;
-              return DropdownMenuItem<T?>(
-                value: value,
-                child: Text(value.toString()),
-              );
-            },
-          ).toList(),
-          onChanged: onChanged,
         ),
       ],
     );
